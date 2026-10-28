@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>تحدي الصحة والغذاء</title>
+<style>
+:root{--bg1:#ff9a3c;--bg2:#ff4f7b;--bg3:#7b4dff;--bg4:#18c5a3;--card:#ffffffee;--ink:#2a2350;--ok:#1faa59;--bad:#e8344e;--accent:#7b4dff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--card:#241d4aee;--ink:#f4f0ff}}
+*{box-sizing:border-box;margin:0}
+html,body{min-height:100%}
+body{font-family:"Cairo","Tajawal","Segoe UI",Tahoma,sans-serif;color:var(--ink);background:linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3),var(--bg4));background-size:400% 400%;animation:bg 16s ease infinite;display:flex;flex-direction:column;min-height:100vh;overflow-x:hidden}
+@keyframes bg{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+.float{position:fixed;font-size:2.2rem;opacity:.35;animation:fl 9s ease-in-out infinite;pointer-events:none;z-index:0}
+@keyframes fl{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-30px) rotate(18deg)}}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:18px;position:relative;z-index:1}
+.card{width:100%;max-width:680px;background:var(--card);border-radius:28px;padding:24px;box-shadow:0 20px 50px #0003;backdrop-filter:blur(8px);animation:pop .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+h1{font-size:clamp(1.6rem,6vw,2.3rem);text-align:center;margin-bottom:8px}
+.big{font-size:4.5rem;text-align:center;animation:bounce 1.6s infinite}
+@keyframes bounce{50%{transform:translateY(-14px) scale(1.08)}}
+p.sub{text-align:center;line-height:1.9;margin-bottom:18px;opacity:.85}
+.btn{display:block;margin:0 auto;border:0;border-radius:50px;padding:14px 40px;font:inherit;font-weight:800;font-size:1.15rem;color:#fff;background:linear-gradient(90deg,var(--bg2),var(--bg3));cursor:pointer;box-shadow:0 8px 20px #7b4dff55;transition:transform .2s}
+.btn:hover{transform:scale(1.06)}.btn:active{transform:scale(.96)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;font-weight:700}
+.bar{height:12px;background:#7b4dff22;border-radius:9px;overflow:hidden;margin-bottom:16px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--bg4),var(--bg1));border-radius:9px;transition:width .5s}
+.q{font-size:clamp(1.15rem,4.4vw,1.45rem);font-weight:800;line-height:1.7;margin-bottom:16px;text-align:center}
+.opts{display:grid;gap:10px}
+.opt{border:3px solid transparent;border-radius:18px;padding:13px 16px;font:inherit;font-weight:700;font-size:1.05rem;text-align:right;cursor:pointer;color:#fff;transition:transform .15s;animation:pop .4s backwards}
+.opt:nth-child(1){background:linear-gradient(90deg,#ff7a45,#ff4f7b);animation-delay:.05s}
+.opt:nth-child(2){background:linear-gradient(90deg,#7b4dff,#5a7bff);animation-delay:.12s}
+.opt:nth-child(3){background:linear-gradient(90deg,#18c5a3,#2aa6d6);animation-delay:.19s}
+.opt:nth-child(4){background:linear-gradient(90deg,#f5a623,#e5c100);animation-delay:.26s}
+.opt:hover:not(:disabled){transform:translateX(-6px) scale(1.02)}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok);border-color:#fff;animation:glow .8s}
+.opt.wrong{background:var(--bad);opacity:.7;animation:shake .45s}
+.opt.dim{opacity:.45}
+@keyframes shake{25%{transform:translateX(10px)}75%{transform:translateX(-10px)}}
+@keyframes glow{50%{transform:scale(1.05);box-shadow:0 0 28px var(--ok)}}
+.msg{min-height:3.2em;margin-top:14px;text-align:center;font-weight:800;font-size:1.1rem;display:flex;flex-direction:column;justify-content:center}
+.msg.ok{color:var(--ok)}.msg.bad{color:var(--bad)}
+.timer{display:none;align-items:center;justify-content:center;gap:10px;margin-top:6px;font-weight:700}
+.timer b{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;font-size:1.2rem}
+.score{font-size:3.4rem;font-weight:900;text-align:center;color:var(--accent)}
+.grade{text-align:center;font-size:1.5rem;font-weight:800;margin:8px 0}
+.conf{position:fixed;top:-20px;font-size:1.6rem;animation:fall 3s linear forwards;pointer-events:none;z-index:5}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+footer{position:relative;z-index:1;text-align:center;padding:14px;font-weight:800;color:#fff;text-shadow:0 2px 6px #0006}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important}}
+</style>
+</head>
+<body>
+<span class="float" style="top:8%;right:6%">🍎</span><span class="float" style="top:20%;left:8%;animation-delay:1s">🥦</span>
+<span class="float" style="top:60%;right:10%;animation-delay:2s">🏃</span><span class="float" style="top:75%;left:6%;animation-delay:3s">💧</span>
+<span class="float" style="top:42%;left:45%;animation-delay:4s">🥕</span>
+<main><div class="card" id="app"></div></main>
+<footer>إعداد / غادة علي عبدالظاهر</footer>
+<script>
+const Q=[
+["أي من التالية مصدر جيد للبروتين؟",["السكر","البيض","المشروبات الغازية","الشيبسي"],1],
+["كم كوب ماء يُنصح بشربه يوميًا تقريبًا؟",["كوب واحد","3 أكواب","من 6 إلى 8 أكواب","20 كوبًا"],2],
+["أي فيتامين يحصل عليه الجسم من أشعة الشمس؟",["فيتامين C","فيتامين A","فيتامين K","فيتامين D"],3],
+["أي وجبة تُعتبر الأهم في اليوم؟",["الفطار","السناكس","الحلويات","العشاء المتأخر"],0],
+["أين توجد الألياف بكثرة؟",["الزبدة","الصودا","الخضروات والفواكه","الحلوى"],2],
+["كم ساعة نوم يحتاجها الطالب يوميًا تقريبًا؟",["4 ساعات","من 8 إلى 10 ساعات","14 ساعة","ساعتان"],1],
+["أي عنصر مهم لبناء العظام والأسنان؟",["الكالسيوم","الصودا","الملح فقط","السكر"],0],
+["أفضل مشروب أثناء ممارسة الرياضة هو:",["الصودا","مشروبات الطاقة","الماء","العصائر المعلبة"],2],
+["كم دقيقة نشاط بدني يوميًا يُنصح بها للأطفال؟",["5 دقائق","60 دقيقة","10 ثوانٍ","5 ساعات"],1],
+["نقص الحديد قد يسبب:",["زيادة الطول","قوة النظر","الأنيميا (فقر الدم)","تسوس الأسنان"],2],
+["أي مما يلي يُعد من الدهون الصحية؟",["زيت الزيتون","الزيوت المعاد تسخينها","الشحوم المتجمدة","السمن الصناعي"],0],
+["الإفراط في تناول السكر يؤدي إلى:",["تقوية العضلات","تحسين النظر","زيادة الطول","تسوس الأسنان والسمنة"],3],
+["لماذا نقوم بالإحماء قبل الرياضة؟",["لنتعب أكثر","لتجنب الإصابات","لنأكل أكثر","لا فائدة منه"],1],
+["الزبادي واللبن غنيان بـ:",["الكالسيوم","السكر المكرر فقط","الزيوت","الملح"],0],
+["أي فاكهة غنية بفيتامين C؟",["الموز","التمر","البرتقال","البطيخ"],2],
+["لماذا نغسل أيدينا قبل الأكل؟",["للعب بالماء","لنُبعد الميكروبات","لتغيير اللون","لا سبب"],1],
+["الإفراط في استخدام الشاشات يسبب:",["إجهاد العين وقلة الحركة","زيادة الطول","قوة العضلات","نومًا أفضل"],0],
+["الطبق الصحي المتوازن يحتوي على:",["نشويات فقط","حلويات فقط","وجبات سريعة فقط","خضار وبروتين ونشويات"],3],
+["مضغ الطعام جيدًا يفيد في:",["تأخير الهضم","تسهيل الهضم","زيادة الجوع","لا فائدة"],1],
+["أي طعام مفيد لصحة العين؟",["الجزر","الشيبسي","الحلوى","المشروبات الغازية"],0]
+];
+const app=document.getElementById("app");
+let i=0,score=0,locked=false,tries=0,tm=null,ctx=null;
+function ac(){try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();if(ctx.state==="suspended")ctx.resume()}catch(e){}return ctx}
+function tone(f,t,d,type="sine",v=.25){const c=ac();if(!c)return;const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,c.currentTime+t);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+t+d);o.connect(g);g.connect(c.destination);o.start(c.currentTime+t);o.stop(c.currentTime+t+d)}
+const good=()=>[523,659,784,1047].forEach((f,k)=>tone(f,k*.11,.3));
+const bad=()=>{tone(220,0,.25,"sawtooth",.2);tone(160,.2,.4,"sawtooth",.2)};
+const fan=()=>[523,659,784,659,784,1047,1319].forEach((f,k)=>tone(f,k*.13,.35,"triangle"));
+const sad=()=>[392,349,330,262].forEach((f,k)=>tone(f,k*.25,.4,"triangle"));
+function speak(t){try{const s=window.speechSynthesis;if(!s)return;s.cancel();const u=new SpeechSynthesisUtterance(t);const vs=s.getVoices();u.voice=vs.find(v=>v.lang==='ar-EG')||vs.find(v=>v.lang&&v.lang.toLowerCase().startsWith('ar'))||null;u.lang=u.voice?u.voice.lang:'ar-SA';u.rate=.95;u.pitch=1.1;s.speak(u)}catch(e){}}
+function confetti(){for(let k=0;k<28;k++){const e=document.createElement("span");e.className="conf";e.textContent=["🎉","⭐","✨","🍎","🏅"][k%5];e.style.left=Math.random()*100+"vw";e.style.animationDelay=Math.random()*.8+"s";document.body.appendChild(e);setTimeout(()=>e.remove(),4000)}}
+function start(){ac();i=0;score=0;app.innerHTML=`<div class="big">🥗🏃‍♂️</div><h1>تحدي الصحة والغذاء</h1><p class="sub">20 سؤالًا عن التغذية السليمة والصحة البدنية.<br>اختر الإجابة الصحيحة، وبعد كل سؤال عندك 10 ثوانٍ للتفكير قبل الانتقال للسؤال التالي.</p><button class="btn" id="go">ابدأ التحدي 🚀</button>`;document.getElementById("go").onclick=show}
+function show(){clearInterval(tm);locked=false;tries=0;const [q,o,c]=Q[i];
+app.innerHTML=`<div class="top"><span>السؤال ${i+1} من ${Q.length}</span><span>⭐ ${score}</span></div><div class="bar"><i style="width:${i/Q.length*100}%"></i></div><div class="q">${q}</div><div class="opts">${o.map((t,k)=>`<button class="opt" data-k="${k}">${t}</button>`).join("")}</div><div class="msg" id="msg"></div><div class="timer" id="tmr">الانتقال للسؤال التالي بعد <b id="sec">10</b> ثوانٍ</div>`;
+app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(b))}
+function startTimer(){const t=document.getElementById("tmr"),s=document.getElementById("sec");t.style.display="flex";let n=10;s.textContent=n;tm=setInterval(()=>{n--;s.textContent=n;if(n<=0){clearInterval(tm);next()}},1000)}
+function pick(b){if(locked)return;const k=+b.dataset.k,c=Q[i][2],msg=document.getElementById("msg");
+if(tries===0&&k!==c)startTimer();
+if(k===c){locked=true;if(tries===0)score++;b.classList.add("right");app.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x!==b)x.classList.add("dim")});msg.className="msg ok";msg.textContent=tries===0?"🎉 إجابة صحيحة! أحسنت":"🎉 أحسنت! وصلت للإجابة الصحيحة";good();speak("أحسنت");confetti();clearInterval(tm);document.getElementById("tmr").style.display="none";setTimeout(next,1300)}
+else{tries++;b.classList.add("wrong");b.disabled=true;msg.className="msg bad";msg.innerHTML="❌ الإجابة خاطئة<span>حاول مرة تانية 💪</span>";bad();setTimeout(()=>speak("إجابة خاطئة. حاول مرة تانية"),350)}}
+function next(){if(!locked){const c=Q[i][2];app.querySelectorAll(".opt")[c].classList.add("right")}
+i++;i<Q.length?show():finish()}
+function finish(){clearInterval(tm);const p=score/Q.length*100;let g,e;
+if(p>=90){g="ممتاز 🏆";e="🌟"}else if(p>=75){g="جيد جدًا 🥇";e="😃"}else if(p>=60){g="جيد 👍";e="🙂"}else if(p>=50){g="مقبول 📘";e="😉"}else{g="تحتاج إلى مراجعة 📚";e="💪"}
+app.innerHTML=`<div class="big">${e}</div><h1>انتهى التحدي!</h1><div class="score">${score} / ${Q.length}</div><div class="grade">التقدير: ${g}</div><p class="sub">${p>=60?"أنت تهتم بصحتك، استمر على عاداتك الصحية!":"راجع المعلومات الصحية وجرّب مرة أخرى، وستتحسن نتيجتك."}</p><button class="btn" id="again">إعادة التحدي 🔄</button>`;
+document.getElementById("again").onclick=start;if(p>=60){fan();confetti()}else sad();if(p>=90)setTimeout(()=>speak("برافو عليك، أحسنت، وأتممت الاختبار بنجاح"),1200)}
+start();
+</script>
+</body>
+</html>
